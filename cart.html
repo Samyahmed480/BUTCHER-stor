@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>تأكيد الطلب والدفع</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #2d221b url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+                background-size: 400px 400px;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 500px;
+                margin: 60px auto;
+                background: #3e2f23e6;
+                border-radius: 18px;
+                box-shadow: 0 4px 24px #0008;
+                padding: 40px 28px 32px 28px;
+                color: #ffe6c7;
+                border: 2.5px solid #a67c52;
+            }
+
+            h2 {
+                text-align: center;
+                color: #ffd700;
+                font-size: 2em;
+                margin-bottom: 24px;
+                letter-spacing: 2px;
+                text-shadow: 0 2px 8px #0004;
+            }
+
+            .summary {
+                margin: 24px 0 18px 0;
+                font-size: 1.13em;
+                background: #4b3322;
+                border-radius: 10px;
+                padding: 18px 18px 10px 18px;
+                box-shadow: 0 1px 6px #0002;
+            }
+
+            .summary ul {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 10px 0;
+            }
+
+            .summary li {
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+                border-bottom: 1px dashed #a67c52;
+                color: #ffd7a0;
+                font-size: 1.08em;
+            }
+
+            .summary li:last-child {
+                border-bottom: none;
+            }
+
+            .summary b {
+                color: #ffd700;
+            }
+
+            .order-form {
+                margin-top: 28px;
+                background: #4b3322;
+                border-radius: 10px;
+                padding: 18px 18px 10px 18px;
+                box-shadow: 0 1px 6px #0002;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .order-form label {
+                color: #ffd7a0;
+                font-size: 1.08em;
+                margin-bottom: 4px;
+                font-weight: bold;
+            }
+
+            .order-form input {
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: 1.5px solid #a67c52;
+                font-size: 1.08em;
+                background: #fff8f0;
+                color: #5a3e2a;
+                margin-bottom: 6px;
+                outline: none;
+                transition: border 0.2s;
+            }
+
+            .order-form input:focus {
+                border: 2px solid #ffd700;
+            }
+
+            .pay-btn {
+                background: linear-gradient(90deg, #a67c52 60%, #ffd700 100%);
+                color: #5a3e2a;
+                border: none;
+                border-radius: 24px;
+                padding: 12px 38px;
+                font-size: 1.15em;
+                cursor: pointer;
+                display: block;
+                margin: 32px auto 0 auto;
+                transition: background 0.2s, box-shadow 0.2s;
+                font-weight: bold;
+                box-shadow: 0 2px 8px #0002;
+            }
+
+            .pay-btn:hover {
+                background: linear-gradient(90deg, #8d6e4a 60%, #ffd700 100%);
+                box-shadow: 0 4px 16px #0004;
+            }
+
+            nav {
+                background: #3e2f23e6;
+                padding: 12px 0 8px 0;
+                box-shadow: 0 2px 8px #0002;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+            }
+
+            nav a {
+                margin-right: 24px;
+                text-decoration: none;
+                color: #ffd700;
+                font-size: 1.2em;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            nav img {
+                height: 38px;
+                width: auto;
+                border-radius: 8px;
+                vertical-align: middle;
+                box-shadow: 0 1px 4px #0003;
+            }
+
+            /* تحسين تنسيق الناف بار */
+            nav {
+                background: #fffbe6;
+                padding: 10px 0 8px 0;
+                box-shadow: 0 2px 8px #0002;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                border-bottom: 2.5px solid #a67c52;
+                justify-content: space-between;
+            }
+
+            nav a {
+                margin-right: 32px;
+                text-decoration: none;
+                color: #a67c52;
+                font-size: 1.25em;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+
+            nav img {
+                height: 48px;
+                width: auto;
+                border-radius: 12px;
+                vertical-align: middle;
+                box-shadow: 0 1px 6px #0002;
+                border: 2px solid #a67c52;
+                background: #fff;
+            }
+
+            /* تحسين تنسيق النص بجانب الشعار */
+            nav span {
+                font-family: 'Cairo', Tahoma, Arial, sans-serif;
+                letter-spacing: 1px;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jspdf-arabic/dist/jspdf-arabic.min.js"></script>
+    </head>
+
+    <body>
+        <nav
+            style="background:#fffbe6;padding:10px 0 8px 0;box-shadow:0 2px 8px #0002;display:flex;align-items:center;gap:18px;border-bottom:2.5px solid #a67c52;justify-content:space-between;">
+            <a href="index.html"
+                style="margin-right:32px;text-decoration:none;color:#a67c52;font-size:1.25em;font-weight:bold;display:flex;align-items:center;gap:14px;">
+                <img src="logo.jpg" alt="الشعار"
+                    style="height:48px;width:auto;border-radius:12px;vertical-align:middle;box-shadow:0 1px 6px #0002;border:2px solid #a67c52;background:#fff;">
+                <span style="font-family:'Cairo',Tahoma,Arial,sans-serif;letter-spacing:1px;">BUTCHER FRESH FOOD</span>
+            </a>
+            <div style="margin-left:32px;display:flex;align-items:center;gap:18px;">
+                <a href="https://samyahmed480.github.io/BUTCHER/"
+                    style="background:#25d366;color:#fff;padding:9px 28px;border-radius:8px;font-size:1.13em;text-decoration:none;display:flex;align-items:center;font-weight:bold;box-shadow:0 1px 4px #0001;transition:background 0.2s;">
+                    صفحة التواصل
+                </a>
+                <a href="index.html"
+                    style="background:#a67c52;color:#fff;padding:9px 28px;border-radius:8px;font-size:1.13em;text-decoration:none;display:flex;align-items:center;font-weight:bold;box-shadow:0 1px 4px #0001;transition:background 0.2s;">
+                    الصفحة الرئيسية
+                </a>
+            </div>
+        </nav>
+        <div class="container">
+            <h2>تأكيد الطلب والدفع</h2>
+            <div class="summary" id="order-summary">
+                <!-- سيتم عرض ملخص الطلب هنا -->
+            </div>
+            <form class="order-form" id="orderForm" onsubmit="return payOrder()">
+                <label for="name">الاسم الكامل</label>
+                <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكامل">
+                <label for="address">العنوان</label>
+                <input type="text" id="address" name="address" required placeholder="أدخل عنوان التوصيل">
+                <label for="phone">رقم الهاتف</label>
+                <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}" placeholder="أدخل رقم الهاتف">
+                <button class="pay-btn" type="submit">الدفع الآن</button>
+            </form>
+            <button class="pay-btn" id="invoice-btn" style="margin-top:18px;display:block;">عرض الفاتورة</button>
+            <button class="pay-btn" id="whatsapp-btn" style="margin-top:10px;display:block;">إرسال الطلب إلى
+                واتساب</button>
+        </div>
+        <script>
+            // جلب بيانات السلة من localStorage
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const summaryDiv = document.getElementById('order-summary');
+            function renderCart() {
+                if (cart.length === 0) {
+                    summaryDiv.innerHTML = '<b>سلتك فارغة.</b>';
+                } else {
+                    let html = '<ul style="padding-right:20px;">';
+                    let total = 0;
+                    cart.forEach((item, idx) => {
+                        html += `<li>${item.title} × ${item.qty} = <b>${item.price * item.qty} جنيه</b> <button onclick="removeFromCart(${idx})" style='background:#d9534f;color:#fff;border:none;border-radius:6px;padding:3px 12px;margin-right:10px;cursor:pointer;font-size:0.95em;'>حذف</button></li>`;
+                        total += item.price * item.qty;
+                    });
+                    html += `</ul><hr><div style='text-align:right;'>الإجمالي: <b>${total} جنيه</b></div>`;
+                    summaryDiv.innerHTML = html;
+                }
+            }
+            function removeFromCart(idx) {
+                cart.splice(idx, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+            renderCart();
+            // إخفاء زر الدفع القديم
+            document.querySelector('.pay-btn').style.display = 'none';
+            // تحديث دالة الدفع
+            function payOrder() {
+                const name = document.getElementById('name').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                if (!name || !address || !phone) {
+                    alert('يرجى إدخال جميع البيانات المطلوبة.');
+                    return false;
+                }
+                alert('تم الدفع بنجاح!\nشكراً لطلبك، سيتم التواصل معك قريباً.');
+                localStorage.removeItem('cart');
+                setTimeout(() => { window.location.href = 'products.html'; }, 800);
+                return false;
+            }
+            function getInvoiceText() {
+                const name = document.getElementById('name').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                if (!name || !address || !phone) {
+                    return null;
+                }
+                if (cart.length === 0) {
+                    return null;
+                }
+                let msg = `فاتورة الطلب:\n`;
+                cart.forEach(item => {
+                    msg += `• ${item.title} × ${item.qty} = ${item.price * item.qty} جنيه\n`;
+                });
+                let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+                msg += `---------------------\nالإجمالي: ${total} جنيه\n`;
+                msg += `\nالاسم: ${name}\nالعنوان: ${address}\nرقم الهاتف: ${phone}`;
+                return msg;
+            }
+            document.getElementById('invoice-btn').onclick = function () {
+                const name = document.getElementById('name').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                if (!name || !address || !phone || cart.length === 0) {
+                    alert('يرجى إدخال جميع البيانات المطلوبة ووجود منتجات في السلة.');
+                    return;
+                }
+                // إعداد نص الفاتورة بشكل منسق
+                let lines = [];
+                lines.push('فاتورة الطلب');
+                lines.push('');
+                lines.push('المنتجات:');
+                cart.forEach(item => {
+                    lines.push(`- ${item.title} × ${item.qty} = ${item.price * item.qty} جنيه`);
+                });
+                let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+                lines.push('');
+                lines.push(`الإجمالي: ${total} جنيه`);
+                lines.push('');
+                lines.push('بيانات العميل:');
+                lines.push(`الاسم: ${name}`);
+                lines.push(`العنوان: ${address}`);
+                lines.push(`رقم الهاتف: ${phone}`);
+                lines.push('');
+                lines.push('شكراً لثقتكم بنا!');
+                // رسم الفاتورة على canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = 700;
+                canvas.height = 70 + lines.length * 38;
+                const ctx = canvas.getContext('2d');
+                // خلفية بيضاء
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // مستطيل حول الفاتورة
+                ctx.strokeStyle = '#a67c52';
+                ctx.lineWidth = 4;
+                ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+                // عنوان الفاتورة
+                ctx.font = 'bold 32px Tahoma, Arial, sans-serif';
+                ctx.fillStyle = '#a67c52';
+                ctx.textAlign = 'right';
+                ctx.fillText(lines[0], canvas.width - 60, 80);
+                let y = 120;
+                ctx.font = '20px Tahoma, Arial, sans-serif';
+                ctx.fillStyle = '#333';
+                // المنتجات
+                ctx.fillText(lines[2], canvas.width - 60, y);
+                y += 32;
+                for (let i = 3; i < 3 + cart.length; i++) {
+                    ctx.font = '20px Tahoma, Arial, sans-serif';
+                    ctx.fillStyle = '#444';
+                    ctx.fillText(lines[i], canvas.width - 80, y);
+                    y += 28;
+                }
+                // الإجمالي بخلفية
+                y += 6;
+                ctx.fillStyle = '#fffbe6';
+                ctx.fillRect(canvas.width - 320, y - 28, 260, 38);
+                ctx.font = 'bold 22px Tahoma, Arial, sans-serif';
+                ctx.fillStyle = '#d18c00';
+                ctx.fillText(lines[3 + cart.length + 1], canvas.width - 80, y);
+                y += 48;
+                // بيانات العميل
+                ctx.font = 'bold 20px Tahoma, Arial, sans-serif';
+                ctx.fillStyle = '#a67c52';
+                ctx.fillText(lines[5 + cart.length + 1], canvas.width - 60, y);
+                y += 32;
+                ctx.font = '20px Tahoma, Arial, sans-serif';
+                ctx.fillStyle = '#333';
+                ctx.fillText(lines[6 + cart.length + 1], canvas.width - 80, y);
+                y += 28;
+                ctx.fillText(lines[7 + cart.length + 1], canvas.width - 80, y);
+                y += 28;
+                ctx.fillText(lines[8 + cart.length + 1], canvas.width - 80, y);
+                y += 40;
+                // تذييل شكر
+                ctx.font = 'bold 18px Tahoma, Arial, sans-serif';
+                ctx.fillStyle = '#888';
+                ctx.fillText(lines[10 + cart.length + 1], canvas.width - 80, y);
+                // تحويل الصورة إلى PDF
+                const jsPDF = window.jspdf.jsPDF;
+                const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = 180;
+                const pdfHeight = canvas.height * (pdfWidth / canvas.width);
+                doc.addImage(imgData, 'PNG', 15, 20, pdfWidth, pdfHeight);
+                doc.save('فاتورة.pdf');
+            }
+            document.getElementById('whatsapp-btn').onclick = function () {
+                const msg = getInvoiceText();
+                if (!msg) {
+                    alert('يرجى إدخال جميع البيانات المطلوبة ووجود منتجات في السلة.');
+                    return;
+                }
+                const whatsappNumber = '01107632475';
+                const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+                window.open(url, '_blank');
+            }
+        </script>
+    </body>
+
+</html>
