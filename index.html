@@ -403,20 +403,30 @@
                 }
 
                 .offer-card {
-                    min-height: 0;
-                    padding: 10px 2vw 10px 2vw !important;
-                    border-radius: 10px !important;
+                    min-height: unset !important;
+                    height: auto !important;
+                    max-height: unset !important;
+                    overflow: visible !important;
+                    padding-bottom: 18px !important;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
                 }
 
-                .offer-card>div[style*='position:absolute'] {
-                    font-size: 1.1em !important;
-                    padding: 10px 0 7px 0 !important;
-                    border-radius: 10px 10px 0 0 !important;
+                .offer-card > div[style*='position:absolute'] {
+                    white-space: normal !important;
+                    overflow: visible !important;
+                    text-overflow: unset !important;
+                    word-break: break-word !important;
                 }
 
-                .offer-details,
-                .offer-desc {
-                    font-size: 1em !important;
+                .offer-card .offer-details,
+                .offer-card .offer-desc,
+                .offer-card .offer-total {
+                    white-space: normal !important;
+                    overflow: visible !important;
+                    text-overflow: unset !important;
+                    word-break: break-word !important;
                 }
 
                 .buy-offer-btn {
